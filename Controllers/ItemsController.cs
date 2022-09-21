@@ -1,4 +1,4 @@
-using Catalog.Entities;
+using Catalog.DTOs;
 using Catalog.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,28 +8,27 @@ namespace Catalog.Controllers
     [Route("items")]
     public class ItemsController : ControllerBase
     {
-        private readonly InMemoryItemsRepository repository;
+        private readonly IItemsRepository repository;
 
-        public ItemsController()
+        public ItemsController(IItemsRepository repo)
         {
-            repository = new InMemoryItemsRepository();
+            this.repository = repo;
         }
 
         [HttpGet]
-        public IEnumerable<Item> GetItems(){
-            var items = repository.GetItems();
-
+        public IEnumerable<ItemDto> GetItems(){
+            var items = repository.GetItems().Select( item => item.AsDto());
             return items;
         }
 
         // GET /items/{id}
         [HttpGet("{id}")]
-        public ActionResult<Item> GetItem(Guid id){
+        public ActionResult<ItemDto> GetItem(Guid id){
             var item = repository.GetItem(id);
             if(item is null){
                 return NotFound();
             }
-            return Ok(item);
+            return Ok(item.AsDto());
         }
     }
 }
