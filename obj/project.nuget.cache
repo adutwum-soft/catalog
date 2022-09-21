@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "7MqhO9SOZV+DGybjtyo5XikpPUbJMLNcTBM2LG/tRqIeLNL0ovsI1NgJ9TWW7Dy/tw8M/uSVqRFhFJUoWymj9w==",
+  "success": true,
+  "projectFilePath": "/Users/patrickadutwum/Deverlopment/playground/dotnet/Catalog/Catalog.csproj",
+  "expectedPackageFiles": [
+    "/Users/patrickadutwum/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "/Users/patrickadutwum/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/patrickadutwum/.nuget/packages/swashbuckle.aspnetcore/6.2.3/swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "/Users/patrickadutwum/.nuget/packages/swashbuckle.aspnetcore.swagger/6.2.3/swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "/Users/patrickadutwum/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.2.3/swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "/Users/patrickadutwum/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.2.3/swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
