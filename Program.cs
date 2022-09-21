@@ -1,29 +1,43 @@
-using Catalog.Repositories;
+    using Catalog.Repositories;
+    using Catalog.Settings;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
 
-var builder = WebApplication.CreateBuilder(args);
+    var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+    // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    builder.Services.AddControllers();
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IItemsRepository, InMemoryItemsRepository>();
+    BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+    BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 
-var app = builder.Build();
+    builder.Services.AddSingleton<IMongoClient>(servicesProvider => 
+    {
+        var settings = builder.Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
+        return new MongoClient(settings.ConnectionString);
+    });
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    builder.Services.AddSingleton<IItemsRepository, MongoDBItemsRepository>();
 
-app.UseHttpsRedirection();
+    var app = builder.Build();
 
-app.UseAuthorization();
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
-app.MapControllers();
+    app.UseHttpsRedirection();
 
-app.Run();
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    app.Run();
